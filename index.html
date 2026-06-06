@@ -3,449 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Portfolio | Lê Thùy Dung</title>
-    <style>
-        /* --- CSS STYLING & PHONG CÁCH GIAO DIỆN --- */
-        :root {
-            --primary-color: #0f172a; /* Slate 900 */
-            --secondary-color: #2563eb; /* Royal Blue */
-            --accent-color: #38bdf8; /* Sky Blue */
-            --text-dark: #334155;
-            --text-light: #f8fafc;
-            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
-            --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background-color: #f1f5f9;
-            color: var(--text-dark);
-            line-height: 1.6;
-        }
-
-        /* Thanh điều hướng cố định (Navigation Bar) */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background-color: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 20px;
-        }
-
-        .logo {
-            color: var(--text-light);
-            font-size: 1.4rem;
-            font-weight: bold;
-            letter-spacing: 1px;
-        }
-
-        .logo span {
-            color: var(--accent-color);
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
-
-        nav ul li {
-            margin-left: 25px;
-        }
-
-        nav ul li a {
-            color: #cbd5e1;
-            text-decoration: none;
-            font-size: 1rem;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        nav ul li a:hover {
-            color: var(--accent-color);
-        }
-
-        /* Khu vực Banner chính (Hero Section) */
-        .hero {
-            padding: 140px 20px 80px 20px;
-            background: var(--bg-gradient);
-            color: var(--text-light);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 50px;
-            background: linear-gradient(to top right, #f1f5f9 50%, transparent 50%);
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 10px;
-            letter-spacing: 1px;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: #94a3b8;
-            max-width: 700px;
-            margin: 0 auto 25px auto;
-        }
-
-        .badge-vnu {
-            display: inline-block;
-            background-color: rgba(56, 189, 248, 0.2);
-            border: 1px solid var(--accent-color);
-            color: var(--accent-color);
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            margin-bottom: 20px;
-            font-weight: 600;
-        }
-
-        /* Khung chứa nội dung chính (Main Layout) */
-        .container {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        /* Giới thiệu bản thân & Thông tin cá nhân (Profile Grid) */
-        .profile-grid {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 30px;
-            margin-bottom: 60px;
-        }
-
-        @media (max-width: 768px) {
-            .profile-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .profile-card, .bio-card {
-            background: white;
-            border-radius: 16px;
-            padding: 30px;
-            box-shadow: var(--card-shadow);
-        }
-
-        .profile-card {
-            text-align: center;
-            border-top: 5px solid var(--secondary-color);
-        }
-
-        .avatar-placeholder {
-            width: 130px;
-            height: 130px;
-            border-radius: 50%;
-            background: #e2e8f0;
-            margin: 0 auto 20px auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            color: #94a3b8;
-            border: 4px solid #f1f5f9;
-        }
-
-        .profile-card h3 {
-            font-size: 1.4rem;
-            color: var(--primary-color);
-            margin-bottom: 15px;
-        }
-
-        .info-list {
-            list-style: none;
-            text-align: left;
-            margin-top: 15px;
-        }
-
-        .info-list li {
-            padding: 10px 0;
-            border-bottom: 1px solid #f1f5f9;
-            font-size: 0.95rem;
-        }
-
-        .info-list li:last-child {
-            border-bottom: none;
-        }
-
-        .info-list strong {
-            color: var(--primary-color);
-        }
-
-        .bio-card h2 {
-            font-size: 1.8rem;
-            color: var(--primary-color);
-            margin-bottom: 15px;
-            position: relative;
-            padding-bottom: 8px;
-        }
-
-        .bio-card h2::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 60px;
-            height: 4px;
-            background-color: var(--secondary-color);
-            border-radius: 2px;
-        }
-
-        .bio-card p {
-            margin-bottom: 15px;
-            color: #475569;
-            text-align: justify;
-        }
-
-        .portfolio-goal {
-            margin-top: 25px;
-            padding: 20px;
-            background-color: #eff6ff;
-            border-left: 4px solid var(--secondary-color);
-            border-radius: 0 8px 8px 0;
-        }
-
-        .portfolio-goal h4 {
-            color: var(--secondary-color);
-            margin-bottom: 8px;
-            font-size: 1.1rem;
-        }
-
-        /* Danh sách Case Studies (Nhiệm vụ cốt lõi) */
-        .section-title {
-            text-align: center;
-            font-size: 2rem;
-            color: var(--primary-color);
-            margin-bottom: 40px;
-            position: relative;
-        }
-
-        .section-title span {
-            color: var(--secondary-color);
-        }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-        }
-
-        .project-card {
-            background: white;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: var(--card-shadow);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 1px solid #e2e8f0;
-        }
-
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15);
-        }
-
-        .card-header {
-            background: var(--bg-gradient);
-            color: white;
-            padding: 20px;
-            position: relative;
-        }
-
-        .case-number {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            font-size: 1.5rem;
-            font-weight: 800;
-            opacity: 0.3;
-            color: var(--accent-color);
-        }
-
-        .card-header h3 {
-            font-size: 1.2rem;
-            max-width: 85%;
-        }
-
-        .card-body {
-            padding: 25px;
-        }
-
-        .card-body p {
-            color: #475569;
-            font-size: 0.95rem;
-            margin-bottom: 15px;
-        }
-
-        /* Phần Footer cuối trang */
-        footer {
-            background-color: var(--primary-color);
-            color: #94a3b8;
-            padding: 40px 20px;
-            text-align: center;
-            margin-top: 80px;
-            border-top: 4px solid var(--secondary-color);
-        }
-
-        footer p {
-            margin-bottom: 10px;
-            font-size: 0.95rem;
-        }
-
-        footer .contact-info {
-            color: var(--accent-color);
-            font-weight: 500;
-        }
-    </style>
+    <title>Digital Portfolio - Lê Thùy Dung</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-    <header>
+    <header class="navbar">
         <div class="nav-container">
-            <div class="logo">DUNG<span>.PORTFOLIO</span></div>
-            <nav>
-                <ul>
-                    <li><a href="#home">Trang chủ</a></li>
-                    <li><a href="#about">Giới thiệu</a></li>
-                    <li><a href="#projects">Dự án (06 Kỹ năng)</a></li>
-                </ul>
+            <div class="logo">
+                <span class="avatar-placeholder"><i class="fa-solid fa-graduation-cap"></i></span>
+                <span class="student-name">LE THUY DUNG</span>
+            </div>
+            <nav class="menu">
+                <a href="#home" class="active">Home</a>
+                <a href="#projects">Projects</a>
+                <a href="#conclusion">Conclusion</a>
             </nav>
         </div>
     </header>
 
-    <section class="hero" id="home">
-        <div class="badge-vnu">ĐẠI HỌC QUỐC GIA HÀ NỘI</div>
-        <h1>DIGITAL PORTFOLIO</h1>
-        <p>Học phần: Nhập môn Công nghệ số và Ứng dụng Trí tuệ nhân tạo (Kỷ niệm 120 năm truyền thống)</p>
+    <section id="home" class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <p class="university-title">ĐẠI HỌC QUỐC GIA HÀ NỘI</p>
+            <h1 class="main-title">Digital Portfolio</h1>
+            <h2 class="subtitle">Nhập môn Công nghệ số và Ứng dụng Trí tuệ nhân tạo</h2>
+            <p class="anniversary-tag">1906 - 2026 | 120 NĂM TRUYỀN THỐNG</p>
+            <a href="#about" class="btn-scroll">Khám phá ngay <i class="fa-solid fa-arrow-down"></i></a>
+        </div>
     </section>
 
-    <main class="container">
-
-        <section class="profile-grid" id="about">
-            <div class="profile-card">
-                <div class="avatar-placeholder">🎓</div>
-                <h3>Lê Thùy Dung</h3>
-                <ul class="info-list">
-                    <li><strong>Trường:</strong> Đại học Giáo dục - ĐHQGHN</li>
-                    <li><strong>Ngành:</strong> Khoa học Giáo dục và khác</li>
-                    <li><strong>Mã sinh viên:</strong> 25010770</li>
-                    <li><strong>Lớp học phần:</strong> VNU1001_E252068</li>
-                </ul>
-            </div>
-
-            <div class="bio-card">
-                <h2>Định hướng học tập & phát triển</h2>
-                <p>Chào mừng bạn đến với Portfolio của tôi! Tôi là sinh viên năm nhất ngành Khoa học Giáo dục, Trường Đại học Giáo dục - Đại học Quốc gia Hà Nội. Với niềm đam mê khám phá và tinh thần cầu tiến, tôi luôn tìm tòi cách ứng dụng công nghệ số và trí tuệ nhân tạo vào học tập lẫn cuộc sống.</p>
-                <p>Trong bối cảnh giáo dục đang chuyển mình mạnh mẽ, tôi ý thức được rằng làm chủ công nghệ không chỉ còn là lợi thế mà còn là điều kiện tất yếu của một nhà giáo tương lai. Đây là nơi tôi lưu giữ hành trình học hỏi của mình.</p>
-                
-                <div class="portfolio-goal">
-                    <h4>Mục tiêu của Portfolio</h4>
+    <section id="about" class="about-section">
+        <div class="container">
+            <h2 class="section-heading"><i class="fa-solid fa-user"></i> About Me</h2>
+            <div class="about-grid">
+                <div class="about-info">
+                    <p><strong>Họ và tên:</strong> Lê Thùy Dung</p>
+                    <p><strong>Trường:</strong> Trường Đại học Giáo dục - ĐHQGHN</p>
+                    <p><strong>Ngành:</strong> Khoa học Giáo dục</p>
+                    <p><strong>Mã sinh viên:</strong> 25010770</p>
+                    <p><strong>Mã lớp học phần:</strong> VNU1001_E252068</p>
+                </div>
+                <div class="about-text">
+                    <h3>Định hướng học tập & phát triển</h3>
+                    <p>Chào mừng bạn đến với Portfolio của tôi! Tôi là sinh viên năm nhất ngành Khoa học Giáo dục, Trường Đại học Giáo dục - Đại học Quốc gia Hà Nội. Với niềm đam mê khám phá và tinh thần cầu tiến, tôi luôn tìm tòi cách ứng dụng công nghệ số và trí tuệ nhân tạo vào học tập lẫn cuộc sống. Trong bối cảnh giáo dục đang chuyển mình mạnh mẽ, tôi ý thức được rằng làm chủ công nghệ không chỉ còn là lợi thế mà còn là điều kiện tất yếu của một nhà giáo tương lai. Đây là nơi tôi lưu giữ hành trình học hỏi của mình.</p>
+                    
+                    <h3>Mục tiêu của Portfolio</h3>
                     <p>Portfolio này được xây dựng nhằm tổng hợp và hệ thống hóa kiến thức từ các kỹ năng số quan trọng đã học. Đây không chỉ là không gian lưu trữ các dự án thành phần một cách khoa học để dễ dàng tra cứu mà còn là công cụ trực quan để giới thiệu năng lực ứng dụng công nghệ và sử dụng AI có trách nhiệm của bản thân.</p>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="projects">
-            <h2 class="section-title">Hệ thống hóa <span>06 Kỹ năng số</span></h2>
+    <section id="projects" class="projects-section">
+        <div class="container">
+            <h2 class="section-heading"><i class="fa-solid fa-briefcase"></i> Projects</h2>
+            <p class="section-subheading">Hệ thống hóa 06 kỹ năng số học phần</p>
             
             <div class="projects-grid">
-                
                 <div class="project-card">
-                    <div class="card-header">
-                        <span class="case-number">01</span>
-                        <h3>Thao tác cơ bản với tệp tin và thư mục</h3>
-                    </div>
-                    <div class="card-body">
-                        <p>Làm chủ kỹ năng tổ chức dữ liệu khoa học. Tạo lập, phân loại và quản lý cây thư mục logic, tối ưu hóa không gian lưu trữ và tăng tốc độ tìm kiếm tài liệu học tập hiệu quả trên môi trường số máy tính cá nhân.</p>
-                    </div>
+                    <div class="card-icon"><i class="fa-solid fa-folder-open"></i></div>
+                    <span class="case-tag">Case Study 01</span>
+                    <h3>Thao tác cơ bản với tệp tin và thư mục</h3>
+                    <p>Quản lý cấu trúc dữ liệu, tối ưu hóa không gian lưu trữ khoa học trên hệ điều hành.</p>
                 </div>
 
                 <div class="project-card">
-                    <div class="card-header">
-                        <span class="case-number">02</span>
-                        <h3>Tìm kiếm và đánh giá thông tin học thuật</h3>
-                    </div>
-                    <div class="card-body">
-                        <p>Khai thác các cơ sở dữ liệu khoa học uy tín (Google Scholar, IEEE, ScienceDirect...). Ứng dụng bộ tiêu chí khắt khe để phân tích, đánh giá độ tin cậy của tài liệu dựa trên tác giả, năm cập nhật, chỉ số trích dẫn và phương pháp nghiên cứu.</p>
-                    </div>
+                    <div class="card-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+                    <span class="case-tag">Case Study 02</span>
+                    <h3>Tìm kiếm và đánh giá thông tin học thuật</h3>
+                    <p>Chiến lược tìm kiếm nâng cao, bộ lọc thông tin và khai thác tài nguyên học tập chuẩn xác.</p>
                 </div>
 
                 <div class="project-card">
-                    <div class="card-header">
-                        <span class="case-number">03</span>
-                        <h3>Viết prompt hiệu quả cho các tác vụ học tập</h3>
-                    </div>
-                    <div class="card-body">
-                        <p>Xây dựng kỹ năng Prompt Engineering qua 3 cấp độ (Cơ bản, Cải tiến, Nâng cao). Áp dụng các khung nâng cao như Role Prompting, Cấu trúc đầu ra (Output Structuring), Few-shot và các ràng buộc nhận thức (Bloom's Taxonomy) để tối ưu kết quả từ LLMs.</p>
-                    </div>
+                    <div class="card-icon"><i class="fa-solid fa-terminal"></i></div>
+                    <span class="case-tag">Case Study 03</span>
+                    <h3>Viết Prompt hiệu quả cho các tác vụ học tập</h3>
+                    <p>Làm chủ kỹ thuật Prompt Engineering, Role Prompting và Chain-of-Thought ứng dụng thực tế.</p>
                 </div>
 
                 <div class="project-card">
-                    <div class="card-header">
-                        <span class="case-number">04</span>
-                        <h3>Sử dụng công cụ hợp tác cho trực tuyến</h3>
-                    </div>
-                    <div class="card-body">
-                        <p>Phối hợp làm việc nhóm chuyên nghiệp thông qua hệ sinh thái số tích hợp: Quản lý và lưu trữ dữ liệu tập trung bằng Google Drive; Lập kế hoạch và giám sát tiến độ trực quan với Trello; Duy trì tương tác, trao đổi liên tục qua Zalo.</p>
-                    </div>
+                    <div class="card-icon"><i class="fa-solid fa-users"></i></div>
+                    <span class="case-tag">Case Study 04</span>
+                    <h3>Sử dụng công cụ hợp tác trực tuyến</h3>
+                    <p>Ứng dụng hệ sinh thái số (Google Drive, Trello, Zalo) tối ưu hiệu suất làm việc nhóm.</p>
                 </div>
 
                 <div class="project-card">
-                    <div class="card-header">
-                        <span class="case-number">05</span>
-                        <h3>Sử dụng AI tạo sinh hỗ trợ sáng tạo nội dung</h3>
-                    </div>
-                    <div class="card-body">
-                        <p>Chuyển đổi quy trình sáng tạo truyền thống sang mô hình Agile và "Cộng tác đồng thời" (Co-creation). Đóng vai trò Giám đốc sáng tạo điều phối AI sinh văn bản (Gemini) và tạo hình ảnh (DALL-E 3) để thiết kế học liệu E-Guidebook cá nhân hóa.</p>
-                    </div>
+                    <div class="card-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                    <span class="case-tag">Case Study 05</span>
+                    <h3>Sử dụng AI tạo sinh để hỗ trợ sáng tạo nội dung</h3>
+                    <p>Phát triển ý tưởng học liệu, E-Guidebook cá nhân hóa lộ trình học ngôn ngữ xuất sắc.</p>
                 </div>
 
                 <div class="project-card">
-                    <div class="card-header">
-                        <span class="case-number">06</span>
-                        <h3>Sử dụng AI có trách nhiệm trong học tập & NC</h3>
-                    </div>
-                    <div class="card-body">
-                        <p>Nghiên cứu đối soát khung chính sách AI giữa HNUE và VNU-HN. Thực hành quy trình kiểm chứng 4 bước độc lập: Kiểm thực tế, địa phương hóa bối cảnh, diễn đạt lại bằng tư duy cá nhân và khai báo minh bạch nguồn trích dẫn sử dụng AI (chuẩn APA 7th).</p>
-                    </div>
+                    <div class="card-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                    <span class="case-tag">Case Study 06</span>
+                    <h3>Sử dụng AI có trách nhiệm trong học tập</h3>
+                    <p>Tuân thủ nguyên tắc đạo đức, chống đạo văn, xây dựng bộ quy tắc cá nhân minh bạch.</p>
                 </div>
-
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
 
-    <footer>
-        <p>© 2026 Designed for Digital Portfolio Assignment - Toàn vẹn học thuật & Đạo đức AI</p>
-        <p>Sinh viên thực hiện: <strong>Lê Thùy Dung</strong> | Ngành Khoa học Giáo dục</p>
-        <p class="contact-info">Email: lthuydung1807@gmail.com | Điện thoại: 097x.xxx.xxx</p>
+    <footer id="conclusion" class="footer-section">
+        <div class="container">
+            <h2>Conclusion</h2>
+            <p class="conclusion-text">Hành trình ứng dụng AI để cá nhân hóa việc học không dừng lại ở việc làm chủ công nghệ, mà là một quá trình nghiêm túc nhằm định hướng phương pháp luận, xây dựng nền tảng tư duy chuẩn xác trong kỷ nguyên số.</p>
+            <div class="contact-info">
+                <h3>Thông tin liên hệ</h3>
+                <p><i class="fa-solid fa-envelope"></i> Email: <a href="mailto:lthuydung1807@gmail.com">lthuydung1807@gmail.com</a></p>
+                <p><i class="fa-solid fa-phone"></i> Điện thoại: 097x.xxx.xxx</p>
+            </div>
+            <p class="copyright">&copy; 2026 LE THUY DUNG. All Rights Reserved.</p>
+        </div>
     </footer>
 
 </body>
