@@ -1,0 +1,849 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PTT Content Creator Portfolio</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700&display=swap');
+
+  :root {
+    --green: #00A650;
+    --green-dark: #008040;
+    --green-light: #e6f9f0;
+    --blue: #0057b8;
+    --dark: #1a1a2e;
+    --gray: #f5f7fa;
+    --white: #ffffff;
+    --text: #333333;
+    --text-light: #666666;
+    --shadow: 0 4px 24px rgba(0,0,0,0.08);
+    --radius: 16px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: var(--text);
+    background: var(--white);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ========== NAV ========== */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(0,166,80,0.1);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 72px;
+    transition: box-shadow .3s;
+  }
+  nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
+  .nav-logo {
+    font-weight: 800; font-size: 1.25rem;
+    background: linear-gradient(135deg, var(--green), var(--blue));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    letter-spacing: -0.5px;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none; color: var(--text-light);
+    font-size: .9rem; font-weight: 500;
+    position: relative; transition: color .3s;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -4px; left: 0;
+    width: 0; height: 2px; background: var(--green);
+    transition: width .3s;
+  }
+  .nav-links a:hover { color: var(--green); }
+  .nav-links a:hover::after { width: 100%; }
+
+  .nav-toggle { display: none; background: none; border: none; cursor: pointer; }
+  .nav-toggle span {
+    display: block; width: 24px; height: 2px;
+    background: var(--text); margin: 6px 0;
+    transition: .3s;
+  }
+
+  /* ========== HERO ========== */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(160deg, #f0fdf4 0%, #ffffff 40%, #f0f7ff 100%);
+    padding: 6rem 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(0,166,80,0.08) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero::after {
+    content: '';
+    position: absolute; bottom: -150px; left: -150px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(0,87,184,0.06) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero-content {
+    max-width: 800px; text-align: center;
+    position: relative; z-index: 1;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: var(--green-light); color: var(--green-dark);
+    padding: .4rem 1.2rem; border-radius: 50px;
+    font-size: .8rem; font-weight: 600;
+    margin-bottom: 1.5rem;
+    letter-spacing: .5px;
+    animation: fadeInUp .8s ease;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 700; line-height: 1.15;
+    margin-bottom: 1rem;
+    animation: fadeInUp .8s ease .1s both;
+  }
+  .hero h1 span {
+    background: linear-gradient(135deg, var(--green), #34d399);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .hero p {
+    font-size: 1.15rem; color: var(--text-light);
+    max-width: 560px; margin: 0 auto 2rem;
+    animation: fadeInUp .8s ease .2s both;
+  }
+  .hero-btns {
+    display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+    animation: fadeInUp .8s ease .3s both;
+  }
+  .btn {
+    display: inline-flex; align-items: center; gap: .5rem;
+    padding: .85rem 2rem; border-radius: 50px;
+    font-weight: 600; font-size: .95rem;
+    text-decoration: none; transition: all .3s;
+    cursor: pointer; border: none;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--green), #34d399);
+    color: white;
+    box-shadow: 0 4px 16px rgba(0,166,80,0.3);
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,166,80,0.4);
+  }
+  .btn-outline {
+    background: transparent;
+    color: var(--text);
+    border: 2px solid #e0e0e0;
+  }
+  .btn-outline:hover {
+    border-color: var(--green);
+    color: var(--green);
+    transform: translateY(-2px);
+  }
+
+  /* ========== SECTIONS ========== */
+  section { padding: 6rem 2rem; }
+  .section-header {
+    text-align: center; max-width: 600px; margin: 0 auto 3.5rem;
+  }
+  .section-header .label {
+    display: inline-block; color: var(--green);
+    font-size: .8rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 2px;
+    margin-bottom: .5rem;
+  }
+  .section-header h2 {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700; line-height: 1.2;
+    margin-bottom: .75rem;
+  }
+  .section-header p {
+    color: var(--text-light); font-size: 1.05rem;
+  }
+
+  /* ========== ABOUT ========== */
+  #about { background: var(--white); }
+  .about-grid {
+    max-width: 1000px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4rem; align-items: center;
+  }
+  .about-img {
+    position: relative;
+    border-radius: var(--radius);
+    overflow: hidden;
+    aspect-ratio: 4/5;
+    background: linear-gradient(135deg, var(--green-light), #e0f0ff);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .about-img-placeholder {
+    font-size: 8rem; opacity: .15;
+  }
+  .about-img .accent {
+    position: absolute; top: -20px; right: -20px;
+    width: 120px; height: 120px;
+    background: linear-gradient(135deg, var(--green), #34d399);
+    border-radius: 50%; opacity: .2;
+  }
+  .about-text h3 {
+    font-size: 1.8rem; margin-bottom: 1rem;
+  }
+  .about-text p {
+    color: var(--text-light); margin-bottom: 1rem;
+  }
+  .about-stats {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
+    margin-top: 2rem;
+  }
+  .stat {
+    text-align: center; padding: 1.2rem;
+    background: var(--gray); border-radius: 12px;
+    transition: transform .3s;
+  }
+  .stat:hover { transform: translateY(-4px); }
+  .stat .number {
+    font-size: 1.8rem; font-weight: 800;
+    color: var(--green);
+  }
+  .stat .label {
+    font-size: .75rem; color: var(--text-light);
+    text-transform: uppercase; letter-spacing: 1px;
+    margin-top: .25rem;
+  }
+
+  /* ========== SKILLS ========== */
+  #skills { background: var(--gray); }
+  .skills-grid {
+    max-width: 1000px; margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .skill-card {
+    background: white; border-radius: var(--radius);
+    padding: 2rem; position: relative;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    transition: all .3s;
+    border: 1px solid rgba(0,0,0,0.04);
+  }
+  .skill-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow);
+    border-color: rgba(0,166,80,0.2);
+  }
+  .skill-icon {
+    width: 56px; height: 56px;
+    background: var(--green-light);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; margin-bottom: 1.2rem;
+    transition: background .3s;
+  }
+  .skill-card:hover .skill-icon { background: var(--green); }
+  .skill-card:hover .skill-icon svg { stroke: white !important; }
+  .skill-card h4 { font-size: 1.1rem; margin-bottom: .5rem; }
+  .skill-card p { color: var(--text-light); font-size: .9rem; line-height: 1.6; }
+  .skill-bar-wrap {
+    margin-top: 1rem; background: #eee; border-radius: 8px;
+    height: 6px; overflow: hidden;
+  }
+  .skill-bar {
+    height: 100%; border-radius: 8px;
+    background: linear-gradient(90deg, var(--green), #34d399);
+    transition: width 1s ease;
+    width: 0;
+  }
+
+  /* ========== PORTFOLIO ========== */
+  #portfolio { background: var(--white); }
+  .portfolio-grid {
+    max-width: 1100px; margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+  .portfolio-card {
+    border-radius: var(--radius); overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    transition: all .4s; position: relative;
+    background: white;
+    border: 1px solid rgba(0,0,0,0.04);
+  }
+  .portfolio-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(0,166,80,0.15);
+  }
+  .portfolio-thumb {
+    aspect-ratio: 16/10; overflow: hidden;
+    position: relative;
+  }
+  .portfolio-thumb-bg {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3rem; transition: transform .4s;
+  }
+  .portfolio-card:hover .portfolio-thumb-bg { transform: scale(1.05); }
+  .portfolio-thumb-bg.bg1 { background: linear-gradient(135deg, #00A650, #34d399); }
+  .portfolio-thumb-bg.bg2 { background: linear-gradient(135deg, #0057b8, #60a5fa); }
+  .portfolio-thumb-bg.bg3 { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
+  .portfolio-thumb-bg.bg4 { background: linear-gradient(135deg, #8b5cf6, #a78bfa); }
+  .portfolio-thumb-bg.bg5 { background: linear-gradient(135deg, #ec4899, #f472b6); }
+  .portfolio-thumb-bg.bg6 { background: linear-gradient(135deg, #14b8a6, #5eead4); }
+
+  .portfolio-overlay {
+    position: absolute; inset: 0;
+    background: rgba(0,0,0,0.6);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    opacity: 0; transition: opacity .3s;
+  }
+  .portfolio-card:hover .portfolio-overlay { opacity: 1; }
+  .portfolio-overlay h4 { color: white; font-size: 1.1rem; margin-bottom: .3rem; }
+  .portfolio-overlay span { color: rgba(255,255,255,0.8); font-size: .85rem; }
+  .portfolio-body { padding: 1.5rem; }
+  .portfolio-body h4 { font-size: 1.05rem; margin-bottom: .35rem; }
+  .portfolio-body p { color: var(--text-light); font-size: .85rem; }
+  .portfolio-tags {
+    display: flex; gap: .4rem; flex-wrap: wrap; margin-top: .8rem;
+  }
+  .tag {
+    padding: .25rem .7rem; border-radius: 50px;
+    font-size: .7rem; font-weight: 600;
+    background: var(--green-light); color: var(--green-dark);
+  }
+
+  /* ========== EXPERIENCE ========== */
+  #experience { background: var(--gray); }
+  .timeline {
+    max-width: 700px; margin: 0 auto;
+    position: relative;
+    padding-left: 2.5rem;
+  }
+  .timeline::before {
+    content: ''; position: absolute; left: 10px; top: 0; bottom: 0;
+    width: 3px; background: linear-gradient(180deg, var(--green), var(--blue));
+    border-radius: 3px;
+  }
+  .timeline-item {
+    position: relative; margin-bottom: 2.5rem;
+    padding-left: 1.5rem;
+  }
+  .timeline-item::before {
+    content: ''; position: absolute;
+    left: -1.85rem; top: .3rem;
+    width: 14px; height: 14px;
+    background: var(--green); border: 3px solid white;
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px var(--green-light);
+  }
+  .timeline-date {
+    font-size: .8rem; font-weight: 600;
+    color: var(--green); margin-bottom: .3rem;
+    text-transform: uppercase; letter-spacing: 1px;
+  }
+  .timeline-item h4 { font-size: 1.1rem; margin-bottom: .2rem; }
+  .timeline-item .company {
+    color: var(--text-light); font-size: .9rem; margin-bottom: .5rem;
+  }
+  .timeline-item p {
+    color: var(--text-light); font-size: .9rem;
+  }
+
+  /* ========== CONTACT ========== */
+  #contact { background: var(--white); }
+  .contact-grid {
+    max-width: 900px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+  .contact-info h3 {
+    font-size: 1.5rem; margin-bottom: 1rem;
+  }
+  .contact-info p {
+    color: var(--text-light); margin-bottom: 2rem;
+  }
+  .contact-item {
+    display: flex; align-items: center; gap: 1rem;
+    margin-bottom: 1.2rem;
+    padding: 1rem; border-radius: 12px;
+    transition: background .3s;
+  }
+  .contact-item:hover { background: var(--gray); }
+  .contact-item-icon {
+    width: 48px; height: 48px; flex-shrink: 0;
+    background: var(--green-light);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .contact-item-text .cl { font-size: .75rem; color: var(--text-light); text-transform: uppercase; letter-spacing: 1px; }
+  .contact-item-text p { font-weight: 600; margin: .15rem 0 0; font-size: .95rem; }
+  .contact-form {
+    background: var(--gray); border-radius: var(--radius);
+    padding: 2rem;
+  }
+  .form-group { margin-bottom: 1.2rem; }
+  .form-group label {
+    display: block; font-size: .8rem; font-weight: 600;
+    margin-bottom: .4rem; color: var(--text);
+    text-transform: uppercase; letter-spacing: .5px;
+  }
+  .form-group input, .form-group textarea {
+    width: 100%; padding: .75rem 1rem;
+    border: 2px solid #e0e0e0; border-radius: 10px;
+    font-family: inherit; font-size: .95rem;
+    transition: border-color .3s; background: white;
+    outline: none;
+  }
+  .form-group input:focus, .form-group textarea:focus {
+    border-color: var(--green);
+  }
+  .form-group textarea { resize: vertical; min-height: 120px; }
+
+  /* ========== FOOTER ========== */
+  footer {
+    background: var(--dark); color: rgba(255,255,255,0.7);
+    text-align: center; padding: 3rem 2rem;
+  }
+  footer .footer-logo {
+    font-size: 1.5rem; font-weight: 800;
+    background: linear-gradient(135deg, var(--green), #34d399);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    margin-bottom: .5rem;
+  }
+  footer p { font-size: .85rem; }
+  .social-links {
+    display: flex; gap: 1rem; justify-content: center;
+    margin-top: 1.5rem;
+  }
+  .social-links a {
+    width: 40px; height: 40px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: white; text-decoration: none;
+    transition: all .3s; font-size: .9rem;
+  }
+  .social-links a:hover {
+    background: var(--green);
+    transform: translateY(-3px);
+  }
+
+  /* ========== ANIMATIONS ========== */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-in {
+    opacity: 0; transform: translateY(30px);
+    transition: all .6s ease;
+  }
+  .fade-in.visible {
+    opacity: 1; transform: translateY(0);
+  }
+
+  /* ========== RESPONSIVE ========== */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .nav-links.active {
+      display: flex; flex-direction: column;
+      position: absolute; top: 72px; left: 0; right: 0;
+      background: white; padding: 1.5rem 2rem;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      gap: 1rem;
+    }
+    .nav-toggle { display: block; }
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .about-img { max-width: 300px; margin: 0 auto; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .portfolio-grid { grid-template-columns: 1fr; }
+    section { padding: 4rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-logo">PTT Portfolio</div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">Giới thiệu</a></li>
+    <li><a href="#skills">Kỹ năng</a></li>
+    <li><a href="#portfolio">Dự án</a></li>
+    <li><a href="#experience">Kinh nghiệm</a></li>
+    <li><a href="#contact">Liên hệ</a></li>
+  </ul>
+  <button class="nav-toggle" onclick="document.getElementById('navLinks').classList.toggle('active')">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">✦ CONTENT CREATOR AT PTT</div>
+    <h1>Tạo nội dung <span>đột phá</span>, kể câu chuyện thương hiệu</h1>
+    <p>Content Creator với niềm đam mê sáng tạo nội dung đa nền tảng, chuyên thiết kế đồ hoạ, viết kịch bản và sản xuất video cho mạng xã hội.</p>
+    <div class="hero-btns">
+      <a href="#portfolio" class="btn btn-primary">Xem dự án ↓</a>
+      <a href="#contact" class="btn btn-outline">Liên hệ</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header fade-in">
+    <div class="label">Giới thiệu</div>
+    <h2>Về tôi</h2>
+    <p>Content Creator sáng tạo với kỹ năng đa năng trong thiết kế, viết lách và sản xuất nội dung số.</p>
+  </div>
+  <div class="about-grid">
+    <div class="about-img fade-in">
+      <div class="about-img-placeholder">👤</div>
+      <div class="accent"></div>
+    </div>
+    <div class="about-text fade-in">
+      <h3>Xin chào, tôi là Content Creator!</h3>
+      <p>Tôi đam mê tạo ra nội dung sáng tạo, có khả năng biến ý tưởng phức tạp thành những thông điệp trực quan hấp dẫn trên mọi nền tảng.</p>
+      <p>Với kinh nghiệm sử dụng Adobe Photoshop, Illustrator và các công cụ chỉnh sửa video, tôi tự tin mang đến giải pháp nội dung toàn diện cho doanh nghiệp — từ thiết kế đồ hoạ, viết bài đến quản lý mạng xã hội.</p>
+      <p>Tôi đặc biệt hào hứng với cơ hội đóng góp tại PTT, nơi tôi có thể kết hợp kỹ năng sáng tạo với tầm nhìn chiến lược thương hiệu của tập đoàn.</p>
+      <div class="about-stats">
+        <div class="stat">
+          <div class="number">5+</div>
+          <div class="label">Năm kinh nghiệm</div>
+        </div>
+        <div class="stat">
+          <div class="number">50+</div>
+          <div class="label">Dự án hoàn thành</div>
+        </div>
+        <div class="stat">
+          <div class="number">10K+</div>
+          <div class="label">Engagement</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header fade-in">
+    <div class="label">Kỹ năng</div>
+    <h2>Kỹ năng chuyên môn</h2>
+    <p>Các kỹ năng cốt lõi hỗ trợ công việc Content Creator hiệu quả.</p>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card fade-in">
+      <div class="skill-icon">
+        <svg width="24" height="24" fill="none" stroke="#00A650" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+      </div>
+      <h4>Adobe Photoshop & Illustrator</h4>
+      <p>Thiết kế banner, poster, infographic, logo và các ấn phẩm truyền thông chuyên nghiệp.</p>
+      <div class="skill-bar-wrap"><div class="skill-bar" data-width="92"></div></div>
+    </div>
+    <div class="skill-card fade-in">
+      <div class="skill-icon">
+        <svg width="24" height="24" fill="none" stroke="#00A650" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+      </div>
+      <h4>Social Media</h4>
+      <p>Quản lý và sáng tạo nội dung cho Facebook, Instagram, LINE với chiến lược tăng tương tác hiệu quả.</p>
+      <div class="skill-bar-wrap"><div class="skill-bar" data-width="95"></div></div>
+    </div>
+    <div class="skill-card fade-in">
+      <div class="skill-icon">
+        <svg width="24" height="24" fill="none" stroke="#00A650" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+      </div>
+      <h4>Viết sáng tạo</h4>
+      <p>Viết bài PR, caption, kịch bản video và nội dung blog thu hút, đúng tone of voice thương hiệu.</p>
+      <div class="skill-bar-wrap"><div class="skill-bar" data-width="88"></div></div>
+    </div>
+    <div class="skill-card fade-in">
+      <div class="skill-icon">
+        <svg width="24" height="24" fill="none" stroke="#00A650" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15.5 7.5 2.3 2.3a1 1 0 0 0 1.4 0l2.1-2.1a1 1 0 0 0 0-1.4L19 4"/><path d="m21 2-9.6 9.6"/><circle cx="7.5" cy="15.5" r="5.5"/></svg>
+      </div>
+      <h4>Chụp ảnh & Quay phim</h4>
+      <p>Chụp ảnh sản phẩm, sự kiện và quay phim ngắn cho mạng xã hội với góc nhìn nghệ thuật.</p>
+      <div class="skill-bar-wrap"><div class="skill-bar" data-width="85"></div></div>
+    </div>
+    <div class="skill-card fade-in">
+      <div class="skill-icon">
+        <svg width="24" height="24" fill="none" stroke="#00A650" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+      </div>
+      <h4>Chỉnh sửa video</h4>
+      <p>Cắt ghép, chỉnh sửa video với transition mượt, nhạc nền phù hợp cho reels, TikTok, YouTube.</p>
+      <div class="skill-bar-wrap"><div class="skill-bar" data-width="90"></div></div>
+    </div>
+    <div class="skill-card fade-in">
+      <div class="skill-icon">
+        <svg width="24" height="24" fill="none" stroke="#00A650" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+      </div>
+      <h4>Thiết kế đồ hoạ</h4>
+      <p>Tạo ấn phẩm truyền thông đa dạng: brochure, catalogue, banner quảng cáo, ấn phẩm sự kiện.</p>
+      <div class="skill-bar-wrap"><div class="skill-bar" data-width="93"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="section-header fade-in">
+    <div class="label">Dự án</div>
+    <h2>Dự án tiêu biểu</h2>
+    <p>Một số dự án thể hiện kỹ năng và phong cách sáng tạo.</p>
+  </div>
+  <div class="portfolio-grid">
+    <div class="portfolio-card fade-in">
+      <div class="portfolio-thumb">
+        <div class="portfolio-thumb-bg bg1">📱</div>
+        <div class="portfolio-overlay">
+          <h4>Chiến dịch mạng xã hội</h4>
+          <span>Facebook & Instagram</span>
+        </div>
+      </div>
+      <div class="portfolio-body">
+        <h4>Chiến dịch "Năng lượng xanh" cho thương hiệu năng lượng</h4>
+        <p>Thiết kế bộ 20+ bài post, carousel và reel cho chiến dịch nâng cao nhận thức về năng lượng bền vững.</p>
+        <div class="portfolio-tags">
+          <span class="tag">Photoshop</span>
+          <span class="tag">Social Media</span>
+          <span class="tag">Content</span>
+        </div>
+      </div>
+    </div>
+    <div class="portfolio-card fade-in">
+      <div class="portfolio-thumb">
+        <div class="portfolio-thumb-bg bg2">🎬</div>
+        <div class="portfolio-overlay">
+          <h4>Video thương hiệu</h4>
+          <span>YouTube & TikTok</span>
+        </div>
+      </div>
+      <div class="portfolio-body">
+        <h4>Video giới thiệu sản phẩm mới — dòng mỹ phẩm organic</h4>
+        <p>Quay và chỉnh sửa video 60 giây, kết hợp motion graphics cho chiến dịch ra mắt sản phẩm.</p>
+        <div class="portfolio-tags">
+          <span class="tag">Video Edit</span>
+          <span class="tag">Premiere Pro</span>
+          <span class="tag">After Effects</span>
+        </div>
+      </div>
+    </div>
+    <div class="portfolio-card fade-in">
+      <div class="portfolio-thumb">
+        <div class="portfolio-thumb-bg bg3">🎨</div>
+        <div class="portfolio-overlay">
+          <h4>Thiết kế ấn phẩm</h4>
+          <span>Branding</span>
+        </div>
+      </div>
+      <div class="portfolio-body">
+        <h4>Bộ nhận diện thương hiệu cho startup F&B</h4>
+        <p>Thiết kế logo, menu, bảng hiệu, bao bì và các ấn phẩm truyền thông đồng bộ.</p>
+        <div class="portfolio-tags">
+          <span class="tag">Illustrator</span>
+          <span class="tag">Branding</span>
+          <span class="tag">Print</span>
+        </div>
+      </div>
+    </div>
+    <div class="portfolio-card fade-in">
+      <div class="portfolio-thumb">
+        <div class="portfolio-thumb-bg bg4">📸</div>
+        <div class="portfolio-overlay">
+          <h4>Nội dung LINE</h4>
+          <span>LINE Official Account</span>
+        </div>
+      </div>
+      <div class="portfolio-body">
+        <h4>Quản lý LINE Official Account cho chuỗi cà phê</h4>
+        <p>Sáng tạo nội dung LINE, sticker, mini-game và chương trình khuyến mãi tăng follower 300%.</p>
+        <div class="portfolio-tags">
+          <span class="tag">LINE OA</span>
+          <span class="tag">Sticker</span>
+          <span class="tag">Engagement</span>
+        </div>
+      </div>
+    </div>
+    <div class="portfolio-card fade-in">
+      <div class="portfolio-thumb">
+        <div class="portfolio-thumb-bg bg5">✏️</div>
+        <div class="portfolio-overlay">
+          <h4>Blog & PR</h4>
+          <span>Content Writing</span>
+        </div>
+      </div>
+      <div class="portfolio-body">
+        <h4>Chiến dịch nội dung blog cho tập đoàn bất động sản</h4>
+        <p>Viết 30+ bài blog SEO, bài PR và nội dung email marketing thu hút khách hàng tiềm năng.</p>
+        <div class="portfolio-tags">
+          <span class="tag">SEO</span>
+          <span class="tag">Copywriting</span>
+          <span class="tag">Email</span>
+        </div>
+      </div>
+    </div>
+    <div class="portfolio-card fade-in">
+      <div class="portfolio-thumb">
+        <div class="portfolio-thumb-bg bg6">🎥</div>
+        <div class="portfolio-overlay">
+          <h4>Sản xuất sự kiện</h4>
+          <span>Event Coverage</span>
+        </div>
+      </div>
+      <div class="portfolio-body">
+        <h4>Phóng sự sự kiện ra mắt sản phẩm của PTT</h4>
+        <p>Chụp ảnh, quay phim và edit phóng sự sự kiện, đăng tải nội dung real-time lên mạng xã hội.</p>
+        <div class="portfolio-tags">
+          <span class="tag">Photography</span>
+          <span class="tag">Video</span>
+          <span class="tag">Live Content</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-header fade-in">
+    <div class="label">Kinh nghiệm</div>
+    <h2>Hành trình nghề nghiệp</h2>
+    <p>Quá trình phát triển và cống hiến trong lĩnh vực sáng tạo nội dung.</p>
+  </div>
+  <div class="timeline fade-in">
+    <div class="timeline-item">
+      <div class="timeline-date">2025 — Hiện tại</div>
+      <h4>Content Creator</h4>
+      <div class="company">PTT PCL — Văn phòng Tổng giám đốc</div>
+      <p>Sáng tạo nội dung đa nền tảng (Facebook, Instagram, LINE), thiết kế đồ hoạ, chụp ảnh/quay phim sự kiện, viết kịch bản video và quản lý mạng xã hội cho thương hiệu PTT.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">2023 — 2025</div>
+      <h4>Content & Social Media Specialist</h4>
+      <div class="company">Công ty Truyền thông Sáng tạo XYZ</div>
+      <p>Quản lý content cho 5+ brand, lên chiến lược social media, thiết kế hình ảnh và sản xuất video ngắn. Tăng engagement trung bình 150% trong 6 tháng.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">2021 — 2023</div>
+      <h4>Graphic Designer</h4>
+      <div class="company>Agency Design ABC</div>
+      <p>Thiết kế ấn phẩm truyền thông, logo, brand identity cho khách hàng trong và ngoài nước. Sử dụng thành thạo Photoshop, Illustrator, InDesign.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">2017 — 2021</div>
+      <h4>Đại học — Chuyên ngành Truyền thông đa phương tiện</h4>
+      <div class="company>Đại học Khoa học Xã hội & Nhân văn</div>
+      <p>Tốt nghiệp loại Giỏi. Đạt giải nhất cuộc thi Sáng tạo nội dung số cấp trường năm 2020.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-header fade-in">
+    <div class="label">Liên hệ</div>
+    <h2>Liên hệ với tôi</h2>
+    <p>Sẵn sàng đóng góp cho đội ngũ Content Creator tại PTT.</p>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-info fade-in">
+      <h3>Hãy kết nối!</h3>
+      <p>Tôi luôn mong muốn hợp tác và đóng góp vào những dự án đầy cảm hứng. Đừng ngần ngại liên hệ!</p>
+      <div class="contact-item">
+        <div class="contact-item-icon">
+          <svg width="20" height="20" fill="none" stroke="#00A650" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <div class="contact-item-text">
+          <div class="cl">Email</div>
+          <p>contentcreator@email.com</p>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-icon">
+          <svg width="20" height="20" fill="none" stroke="#00A650" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <div class="contact-item-text">
+          <div class="cl">Điện thoại</div>
+          <p>+84 123 456 789</p>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-icon">
+          <svg width="20" height="20" fill="none" stroke="#00A650" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div class="contact-item-text">
+          <div class="cl">Địa chỉ</div>
+          <p>555 Vibhavadi Rangsit Rd., Chatuchak, Bangkok 10900</p>
+        </div>
+      </div>
+    </div>
+    <form class="contact-form fade-in" onsubmit="alert('Cảm ơn bạn! Tin nhắn đã được gửi.');" id="contactForm">
+      <div class="form-group">
+        <label>Họ và tên</label>
+        <input type="text" placeholder="Nguyễn Văn A" required>
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" placeholder="email@example.com" required>
+      </div>
+      <div class="form-group">
+        <label>Tin nhắn</label>
+        <textarea placeholder="Nhập nội dung tin nhắn..." required></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">Gửi tin nhắn →</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">PTT Content Creator</div>
+  <p>© 2025 — Portfolio created with passion for Content Creation</p>
+  <div class="social-links">
+    <a href="#" title="Facebook">FB</a>
+    <a href="#" title="Instagram">IG</a>
+    <a href="#" title="LinkedIn">in</a>
+    <a href="#" title="YouTube">YT</a>
+  </div>
+</footer>
+
+<script>
+  // Scroll nav shadow
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  // Fade-in on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Skill bars animation
+  const skillObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.skill-bar').forEach(bar => {
+          bar.style.width = bar.dataset.width + '%';
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+  document.querySelectorAll('#skills').forEach(el => skillObserver.observe(el));
+</script>
+
+</body>
+</html>
